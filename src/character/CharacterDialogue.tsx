@@ -7,7 +7,7 @@
  */
 
 import { AnimatePresence, motion } from "framer-motion";
-import { DialogueLine } from "../character.config";
+import { DialogueLine } from "./character.config";
 
 export interface CharacterDialogueProps {
   dialogue: DialogueLine | null;

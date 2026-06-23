@@ -1,4 +1,4 @@
-import { MoodConfig, MOOD_CONFIGS } from './universe.config';
+import { MoodConfig, MOOD_CONFIGS } from '../core/config/universe.config';
 
 // ─── Chapter definitions ──────────────────────────────────────────────────────
 
@@ -152,19 +152,19 @@ export function chapterFromProgress(progress: number): {
 } {
   const p = Math.max(0, Math.min(1, progress));
   for (let i = 0; i < CHAPTERS.length; i++) {
-    const ch = CHAPTERS[i];
+    const ch = CHAPTERS[i]!;
     if (p >= ch.progressStart && (p < ch.progressEnd || i === CHAPTERS.length - 1)) {
       const span = ch.progressEnd - ch.progressStart;
       const local = span > 0 ? (p - ch.progressStart) / span : 0;
       return { chapter: ch, localProgress: Math.min(1, local) };
     }
   }
-  const last = CHAPTERS[CHAPTERS.length - 1];
+  const last = CHAPTERS[CHAPTERS.length - 1]!;
   return { chapter: last, localProgress: 1 };
 }
 
 export function chapterById(id: ChapterId): ChapterConfig {
-  return CHAPTERS.find(c => c.id === id) ?? CHAPTERS[0];
+  return CHAPTERS.find(c => c.id === id) ?? CHAPTERS[0]!;
 }
 
 export function progressForChapter(id: ChapterId, localT = 0): number {
@@ -190,7 +190,7 @@ export class UniverseTimelineController {
       if (this.lastChapterIndex >= 0) {
         this.emit({
           type: 'exit',
-          chapterId: CHAPTERS[this.lastChapterIndex].id,
+          chapterId: CHAPTERS[this.lastChapterIndex]!.id,
           chapterIndex: this.lastChapterIndex,
           localProgress: 1,
           globalProgress: p,

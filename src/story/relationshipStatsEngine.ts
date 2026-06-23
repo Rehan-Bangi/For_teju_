@@ -94,8 +94,8 @@ export class RelationshipStatsEngine {
     let longest: MemoryGap | null = null;
 
     for (let i = 0; i < sorted.length - 1; i++) {
-      const from = sorted[i];
-      const to = sorted[i + 1];
+      const from = sorted[i]!;
+      const to = sorted[i + 1]!;
       const gapDays = Math.floor(
         (new Date(to.date).getTime() - new Date(from.date).getTime()) / 86400000
       );

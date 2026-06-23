@@ -37,7 +37,7 @@ import {
 } from 'react';
 import { eventBus, type EventPayloadMap, type TrackId, type SfxId } from '@/core/config/eventBus';
 import { assetPath } from '@/core/config/assetManifest';
-import { useFinaleState } from '@/finale/hooks/useFinaleState';
+import { useFinaleState } from '@/finale/useFinaleState';
 
 type AudioCuePayload = EventPayloadMap['AUDIO_CUE'];
 type CueId = TrackId | SfxId;
@@ -132,7 +132,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
 
     function step(now: number) {
       const t = Math.min(1, (now - startTime) / durationMs);
-      audioEl.volume = startVolume + (targetVolume - startVolume) * t;
+      audioEl!.volume = startVolume + (targetVolume - startVolume) * t;
       if (t < 1) requestAnimationFrame(step);
       else if (targetVolume === 0) stopCue(id);
     }

@@ -7,10 +7,10 @@ import { NebulaLayer } from './NebulaLayer';
 import { ParticleSystem } from './ParticleSystem';
 import { FinaleEffects3D, CinematicAtmosphere } from './FinaleUniverseEffects';
 import { useStoryProgress } from './useStoryProgress';
-import { ChapterId, CHAPTERS } from './UniverseTimelineController';
+import { ChapterId, ChapterConfig, CHAPTERS } from './UniverseTimelineController';
 import { cameraIntensityFromProgress } from './useUniverseProgress';
 import { UniverseQualityManager, QualityProfile } from './UniverseQualityManager';
-import { UNIVERSE_DEFAULTS } from './universe.config';
+import { UNIVERSE_DEFAULTS } from '../core/config/universe.config';
 
 // ─── Camera rig ───────────────────────────────────────────────────────────────
 
@@ -110,7 +110,7 @@ export function HeroUniverseScene({
 
   const { state, setProgress, connectScroll } = useStoryProgress({
     smoothing: 0.05,
-    onChapterChange: useCallback((chapter) => {
+    onChapterChange: useCallback((chapter: ChapterConfig) => {
       onChapterChange?.(chapter.id, chapter.label);
     }, [onChapterChange]),
   });

@@ -13,13 +13,13 @@
  */
 
 import { useEffect, useRef } from "react";
-import { useFinaleState } from "../hooks/useFinaleState";
+import { useFinaleState } from "./useFinaleState";
 import { FinaleSequence } from "./FinaleSequence";
-import { FinaleUnlockRequirements, MemoryFragment } from "../finale.config";
+import { FinaleUnlockRequirements, MemoryFragment } from "./finale.config";
 
 // D1's public character-system surface. Path assumed per locked
 // architecture: sibling `character` module exporting useCharacterEvents.
-import { useCharacterEvents } from "../../character";
+import { useCharacterEvents } from "../character";
 
 export interface FinaleControllerProps {
   unlockRequirements: FinaleUnlockRequirements;

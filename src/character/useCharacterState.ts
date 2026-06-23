@@ -15,7 +15,7 @@ import {
   DialogueLine,
   StoryEvent,
   TIMING,
-} from "../character.config";
+} from "./character.config";
 import {
   applyScriptedState,
   createInitialEngineState,
@@ -25,7 +25,7 @@ import {
   reduceStoryEvent,
   releaseScriptedLock,
   settleAfterTransient,
-} from "../engine/CharacterEngine";
+} from "./characterEngine";
 
 export interface CharacterStore {
   // ---- derived/public state ---------------------------------------
@@ -138,6 +138,10 @@ export const useCharacterState = create<CharacterStore>((set, get) => ({
     }
 
     const [nextLine, ...rest] = dialogueQueue;
+    if (!nextLine) {
+      set({ currentDialogue: null, _dialogueTimer: null });
+      return;
+    }
     set({ currentDialogue: nextLine, dialogueQueue: rest });
 
     const timer = setTimeout(() => {

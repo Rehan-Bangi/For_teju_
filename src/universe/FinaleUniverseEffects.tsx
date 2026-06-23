@@ -63,9 +63,9 @@ export const StarBloom = React.memo(function StarBloom({ intensity }: StarBloomP
 
   useFrame((state) => {
     if (!material.uniforms) return;
-    material.uniforms.uTime.value      = state.clock.elapsedTime;
-    material.uniforms.uIntensity.value +=
-      (intensity - material.uniforms.uIntensity.value) * 0.04;
+    material.uniforms.uTime!.value      = state.clock.elapsedTime;
+    material.uniforms.uIntensity!.value +=
+      (intensity - material.uniforms.uIntensity!.value) * 0.04;
   });
 
   return (
@@ -190,13 +190,13 @@ export const FinaleParticleSurge = React.memo(function FinaleParticleSurge({
 
   useFrame((state) => {
     if (!material.uniforms) return;
-    material.uniforms.uTime.value = state.clock.elapsedTime;
+    material.uniforms.uTime!.value = state.clock.elapsedTime;
     // Smooth intensity ramp — no hard cuts. Low-tier devices get zero contribution
     // via target intensity instead of unmounting, avoiding Strict Mode re-create churn.
     const tier = qm.getProfile().tier;
     const targetIntensity = tier === 'low' ? 0 : intensity;
-    material.uniforms.uIntensity.value +=
-      (targetIntensity - material.uniforms.uIntensity.value) * 0.03;
+    material.uniforms.uIntensity!.value +=
+      (targetIntensity - material.uniforms.uIntensity!.value) * 0.03;
   });
 
   return <points geometry={geometry} material={material} />;

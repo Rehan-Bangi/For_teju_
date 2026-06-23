@@ -1,4 +1,4 @@
-import { TimelineEngine } from '../timelineEngine';
+import { TimelineEngine } from './timelineEngine';
 
 // TODO(Rehan): Replace with the real relationship start date (ISO format, e.g. '2022-03-14').
 export const RELATIONSHIP_START_DATE = ''; // TODO: real date required

@@ -15,9 +15,9 @@
  */
 
 import { ErrorBoundary } from './ErrorBoundary';
-import { ScrollProvider } from './providers/ScrollProvider';
-import { AudioProvider } from './providers/AudioProvider';
-import { EngineBootstrap } from './providers/EngineBootstrap';
+import { ScrollProvider } from '../providers/ScrollProvider';
+import { AudioProvider } from '../providers/AudioProvider';
+import { EngineBootstrap } from '../providers/EngineBootstrap';
 import { LoadingScreen } from '../ui/LoadingScreen';
 import { SceneManager } from './SceneManager';
 

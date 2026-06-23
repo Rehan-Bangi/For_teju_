@@ -15,7 +15,7 @@
  * - Subscribe in useEffect on mount, always return the unsubscribe in cleanup.
  */
 
-import type { QualityTier } from '../store/universeStore';
+import type { QualityTier } from '@/core/store/universeStore';
 
 // ----------------------------------------------------------------------------
 // Shared ID / literal types
@@ -79,6 +79,14 @@ export interface EventPayloadMap {
   };
 
   QUALITY_DETECTED: { tier: QualityTier };
+
+  SCROLL_PROGRESS_UPDATED: {
+    scroll: number;
+    limit: number;
+    velocity: number;
+    direction: number;
+    progress: number;
+  };
 }
 
 export type EventName = keyof EventPayloadMap;
@@ -100,7 +108,7 @@ class EventBus {
    */
   on<T extends EventName>(event: T, listener: Listener<T>): () => void {
     if (!this.listeners[event]) {
-      this.listeners[event] = new Set();
+      this.listeners[event] = new Set() as unknown as typeof this.listeners[T];
     }
     (this.listeners[event] as Set<Listener<T>>).add(listener);
 

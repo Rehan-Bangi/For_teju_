@@ -111,10 +111,12 @@ export function hexToVec3(hex: string): THREE.Vector3 {
 }
 
 /** Pads/truncates a color array to exactly 5 entries, repeating the last color. */
-export function normalizeNebulaColors(colors: string[]): string[] {
-  const safe = [...colors];
-  while (safe.length < 5) safe.push(safe[safe.length - 1]);
-  return safe.slice(0, 5);
+export function normalizeNebulaColors(
+  colors: string[],
+): [string, string, string, string, string] {
+  const safe = colors.length > 0 ? [...colors] : ['#000000'];
+  while (safe.length < 5) safe.push(safe[safe.length - 1]!);
+  return safe.slice(0, 5) as [string, string, string, string, string];
 }
 
 export interface CreateNebulaUniformsOptions {
@@ -130,7 +132,12 @@ export function createNebulaUniforms({
   speed,
   octaves,
 }: CreateNebulaUniformsOptions): NebulaUniforms {
-  const [c0, c1, c2, c3, c4] = normalizeNebulaColors(colors).map(hexToVec3);
+  const [h0, h1, h2, h3, h4] = normalizeNebulaColors(colors);
+  const c0 = hexToVec3(h0);
+  const c1 = hexToVec3(h1);
+  const c2 = hexToVec3(h2);
+  const c3 = hexToVec3(h3);
+  const c4 = hexToVec3(h4);
   return {
     uTime:    { value: 0 },
     uSpeed:   { value: speed },
@@ -149,12 +156,12 @@ export function updateNebulaColorUniforms(
   uniforms: NebulaUniforms,
   colors: string[],
 ): void {
-  const [c0, c1, c2, c3, c4] = normalizeNebulaColors(colors).map(hexToVec3);
-  uniforms.uColor0.value = c0;
-  uniforms.uColor1.value = c1;
-  uniforms.uColor2.value = c2;
-  uniforms.uColor3.value = c3;
-  uniforms.uColor4.value = c4;
+  const [h0, h1, h2, h3, h4] = normalizeNebulaColors(colors);
+  uniforms.uColor0.value = hexToVec3(h0);
+  uniforms.uColor1.value = hexToVec3(h1);
+  uniforms.uColor2.value = hexToVec3(h2);
+  uniforms.uColor3.value = hexToVec3(h3);
+  uniforms.uColor4.value = hexToVec3(h4);
 }
 
 /** Convenience factory for a fully configured ShaderMaterial. */

@@ -87,7 +87,7 @@ export class EmotionalProgressionEngine {
           this.stages.findIndex((s) => s.id === inferred)
         );
       }
-      const stage = this.stages[runningStageIndex];
+      const stage = this.stages[runningStageIndex]!;
       map.get(stage.id)!.push(memory);
     });
 
@@ -104,7 +104,7 @@ export class EmotionalProgressionEngine {
       }
     });
 
-    const currentStage = this.stages[currentStageIndex];
+    const currentStage = this.stages[currentStageIndex]!;
     const stageMemories = classified.get(currentStage.id) ?? [];
     const recent = stageMemories.slice(-5);
     const avgImportance = recent.length

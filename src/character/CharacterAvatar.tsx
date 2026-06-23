@@ -9,7 +9,7 @@
 
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useMemo } from "react";
-import { AVATAR_ANIMATION, CharacterState, STATE_VISUALS } from "../character.config";
+import { AVATAR_ANIMATION, CharacterState, STATE_VISUALS } from "./character.config";
 
 export interface CharacterAvatarProps {
   state: CharacterState;

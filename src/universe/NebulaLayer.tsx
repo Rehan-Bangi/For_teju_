@@ -1,7 +1,7 @@
-import React, { useMemo, useRef, useEffect } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { UNIVERSE_DEFAULTS } from './universe.config';
+import { UNIVERSE_DEFAULTS } from '../core/config/universe.config';
 import { UniverseQualityManager } from './UniverseQualityManager';
 
 interface NebulaLayerProps {
@@ -118,8 +118,8 @@ export const NebulaLayer = React.memo(function NebulaLayer({
   const { geometry, material } = useMemo(() => {
     const geo = new THREE.PlaneGeometry(scale * 2, scale * 2, 1, 1);
 
-    const safeColors = [...colors];
-    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]);
+    const safeColors = colors.length > 0 ? [...colors] : ['#0a1628'];
+    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]!);
     const colorVecs = safeColors.slice(0, 5).map(hexToVec3);
 
     const mat = new THREE.ShaderMaterial({
@@ -128,11 +128,11 @@ export const NebulaLayer = React.memo(function NebulaLayer({
         uSpeed:   { value: speed },
         uOpacity: { value: opacity },
         uOctaves: { value: qm.getProfile().nebulaOctaves },
-        uColor0:  { value: colorVecs[0] },
-        uColor1:  { value: colorVecs[1] },
-        uColor2:  { value: colorVecs[2] },
-        uColor3:  { value: colorVecs[3] },
-        uColor4:  { value: colorVecs[4] },
+        uColor0:  { value: colorVecs[0]! },
+        uColor1:  { value: colorVecs[1]! },
+        uColor2:  { value: colorVecs[2]! },
+        uColor3:  { value: colorVecs[3]! },
+        uColor4:  { value: colorVecs[4]! },
       },
       vertexShader:   VERTEX_SHADER,
       fragmentShader: FRAGMENT_SHADER,
@@ -148,14 +148,14 @@ export const NebulaLayer = React.memo(function NebulaLayer({
   // Update color uniforms when colors prop changes — no geometry rebuild
   useEffect(() => {
     if (!material.uniforms) return;
-    const safeColors = [...colors];
-    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]);
+    const safeColors = colors.length > 0 ? [...colors] : ['#0a1628'];
+    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]!);
     const vecs = safeColors.slice(0, 5).map(hexToVec3);
-    material.uniforms.uColor0.value = vecs[0];
-    material.uniforms.uColor1.value = vecs[1];
-    material.uniforms.uColor2.value = vecs[2];
-    material.uniforms.uColor3.value = vecs[3];
-    material.uniforms.uColor4.value = vecs[4];
+    material.uniforms.uColor0!.value = vecs[0]!;
+    material.uniforms.uColor1!.value = vecs[1]!;
+    material.uniforms.uColor2!.value = vecs[2]!;
+    material.uniforms.uColor3!.value = vecs[3]!;
+    material.uniforms.uColor4!.value = vecs[4]!;
   }, [colors, material]);
 
   // Cleanup
@@ -167,10 +167,10 @@ export const NebulaLayer = React.memo(function NebulaLayer({
   useFrame((state) => {
     if (!material.uniforms) return;
     const u = material.uniforms;
-    u.uTime.value    = state.clock.elapsedTime;
-    u.uSpeed.value   = speed;
-    u.uOpacity.value = opacity;
-    u.uOctaves.value = qm.getProfile().nebulaOctaves;
+    u.uTime!.value    = state.clock.elapsedTime;
+    u.uSpeed!.value   = speed;
+    u.uOpacity!.value = opacity;
+    u.uOctaves!.value = qm.getProfile().nebulaOctaves;
   });
 
   return (
@@ -181,7 +181,7 @@ export const NebulaLayer = React.memo(function NebulaLayer({
           geometry={geometry}
           material={material}
           position={inst.position}
-          rotation={inst.rotation}
+          rotation={inst.rotation as unknown as THREE.Euler}
           scale={inst.scale}
         />
       ))}

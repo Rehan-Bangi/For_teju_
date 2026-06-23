@@ -1,4 +1,4 @@
-import { MemoryEngine, CreateMemoryInput } from '../memoryEngine';
+import { MemoryEngine, CreateMemoryInput } from './memoryEngine';
 
 // TODO(Rehan): This file is a PLACEHOLDER structure only. No real memories exist yet.
 // Replace each placeholder entry below with real memories, or remove the placeholders

@@ -51,6 +51,7 @@ export class MemoryEngine {
     };
 
     const memory = {
+      ...input,
       id: generateId(input.type),
       type: input.type,
       title: input.title,
@@ -63,7 +64,6 @@ export class MemoryEngine {
       unlock: input.unlock ?? { mode: 'always' },
       createdAt: now,
       updatedAt: now,
-      ...input,
     } as Memory;
 
     this.memories.set(memory.id, memory);

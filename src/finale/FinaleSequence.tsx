@@ -19,7 +19,7 @@ import {
   FinaleStage,
   MemoryFragment,
   REDUCED_MOTION_TIMING,
-} from "../finale.config";
+} from "./finale.config";
 import { FinaleReveal } from "./FinaleReveal";
 
 export interface FinaleSequenceProps {
@@ -177,7 +177,7 @@ export const FinaleSequence = ({
       exit={{ opacity: 0 }}
       transition={{ duration: transitionMs / 1000, ease: "easeInOut" }}
     >
-      <Vignette active={stage !== "idle"} />
+      <Vignette active={true} />
 
       <AnimatePresence mode="wait">
         {stage === "slowdown" && (

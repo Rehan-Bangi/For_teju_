@@ -16,8 +16,8 @@
 import { useEffect, useRef } from "react";
 import { CharacterAvatar } from "./CharacterAvatar";
 import { CharacterDialogue } from "./CharacterDialogue";
-import { useCharacterState } from "../hooks/useCharacterState";
-import { StoryEvent } from "../character.config";
+import { useCharacterState } from "./useCharacterState";
+import { StoryEvent } from "./character.config";
 
 export interface CharacterControllerProps {
   /**

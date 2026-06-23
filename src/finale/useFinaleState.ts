@@ -14,7 +14,7 @@ import {
   FinaleStage,
   FinaleState,
   FinaleUnlockRequirements,
-} from "../finale.config";
+} from "./finale.config";
 import {
   advanceStage as engineAdvanceStage,
   completeFinale as engineCompleteFinale,
@@ -25,7 +25,7 @@ import {
   isSequenceActive,
   resetFinale as engineResetFinale,
   startFinale as engineStartFinale,
-} from "../engine/FinaleEngine";
+} from "./FinaleEngine";
 
 export interface FinaleStore {
   // ---- public state ---------------------------------------------------

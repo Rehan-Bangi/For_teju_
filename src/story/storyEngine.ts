@@ -50,8 +50,8 @@ export class StoryEngine {
 
     let trend: EmotionalArc['trend'] = 'steady';
     if (points.length >= 2) {
-      const first = points[0].intensity;
-      const last = points[points.length - 1].intensity;
+      const first = points[0]!.intensity;
+      const last = points[points.length - 1]!.intensity;
       const variance =
         points.reduce((sum, p) => sum + Math.abs(p.intensity - averageIntensity), 0) /
         points.length;
@@ -83,8 +83,8 @@ export class StoryEngine {
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
     for (let i = 0; i < sorted.length - 1; i++) {
-      const a = sorted[i];
-      const b = sorted[i + 1];
+      const a = sorted[i]!;
+      const b = sorted[i + 1]!;
       const alreadyLinked = connections.some(
         (c) => c.fromMemoryId === a.id && c.toMemoryId === b.id
       );
@@ -122,7 +122,7 @@ export class StoryEngine {
         subtitle: `${sorted.length} memories of ${stage.label.toLowerCase()}`,
         stage: stage.id,
         memoryIds: sorted.map((m) => m.id),
-        dateRange: { start: sorted[0].date, end: sorted[sorted.length - 1].date },
+        dateRange: { start: sorted[0]!.date, end: sorted[sorted.length - 1]!.date },
         emotionalArc: arc,
         summary: this.generateChapterSummary(sorted, stage.label),
         isUnlocked: sorted.every((m) => (m.unlock?.mode ?? 'always') === 'always'),

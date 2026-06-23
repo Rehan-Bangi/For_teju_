@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { UniverseMood, MOOD_CONFIGS, MoodConfig, TRANSITION_DURATION } from './universe.config';
+import { UniverseMood, MOOD_CONFIGS, MoodConfig, TRANSITION_DURATION } from '../core/config/universe.config';
 
 interface UniverseState {
   mood: UniverseMood;
@@ -21,7 +21,7 @@ function lerp(a: number, b: number, t: number): number {
 }
 
 function lerpColor(colorA: string, colorB: string, t: number): string {
-  const parse = (hex: string) => {
+  const parse = (hex: string): [number, number, number] => {
     const n = parseInt(hex.replace('#', ''), 16);
     return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
   };
@@ -41,14 +41,14 @@ function lerpConfig(a: MoodConfig, b: MoodConfig, t: number): MoodConfig {
   const et = easeInOutCubic(t);
   const maxNebulaColors = Math.max(a.nebula.colors.length, b.nebula.colors.length);
   const nebulaColors = Array.from({ length: maxNebulaColors }, (_, i) => {
-    const ca = a.nebula.colors[i % a.nebula.colors.length];
-    const cb = b.nebula.colors[i % b.nebula.colors.length];
+    const ca = a.nebula.colors[i % a.nebula.colors.length]!;
+    const cb = b.nebula.colors[i % b.nebula.colors.length]!;
     return lerpColor(ca, cb, et);
   });
   const maxParticleColors = Math.max(a.particles.colors.length, b.particles.colors.length);
   const particleColors = Array.from({ length: maxParticleColors }, (_, i) => {
-    const ca = a.particles.colors[i % a.particles.colors.length];
-    const cb = b.particles.colors[i % b.particles.colors.length];
+    const ca = a.particles.colors[i % a.particles.colors.length]!;
+    const cb = b.particles.colors[i % b.particles.colors.length]!;
     return lerpColor(ca, cb, et);
   });
 

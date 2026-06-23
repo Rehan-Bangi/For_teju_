@@ -77,7 +77,7 @@ export class TimelineEngine {
     const groups: TimelineGroup[] = [];
 
     for (let i = 0; i < sorted.length; i++) {
-      const start = sorted[i].date;
+      const start = sorted[i]!.date;
       const end = sorted[i + 1]?.date ?? new Date().toISOString();
       const memoryIds = memories
         .filter(
@@ -86,7 +86,7 @@ export class TimelineEngine {
             new Date(m.date) < new Date(end)
         )
         .map((m) => m.id);
-      groups.push({ label: sorted[i].title, start, end, memoryIds });
+      groups.push({ label: sorted[i]!.title, start, end, memoryIds });
     }
     return groups;
   }

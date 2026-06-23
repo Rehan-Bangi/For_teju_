@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { UNIVERSE_DEFAULTS } from './universe.config';
+import { UNIVERSE_DEFAULTS } from '../core/config/universe.config';
 import { UniverseQualityManager } from './UniverseQualityManager';
 
 interface ParticleSystemProps {
@@ -151,9 +151,14 @@ export const ParticleSystem = React.memo(function ParticleSystem({
     activeAttribute.setUsage(THREE.DynamicDrawUsage);
     geo.setAttribute('active', activeAttribute);
 
-    const safeColors = [...colors];
-    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]);
-    const [ca, cb, cc, cd, ce] = safeColors.slice(0, 5).map(hexToRgbNorm);
+    const safeColors = colors.length > 0 ? [...colors] : ['#7eb8f7'];
+    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]!);
+    const [h0, h1, h2, h3, h4] = safeColors.slice(0, 5);
+    const ca = hexToRgbNorm(h0!);
+    const cb = hexToRgbNorm(h1!);
+    const cc = hexToRgbNorm(h2!);
+    const cd = hexToRgbNorm(h3!);
+    const ce = hexToRgbNorm(h4!);
 
     const mat = new THREE.ShaderMaterial({
       uniforms: {
@@ -190,23 +195,23 @@ export const ParticleSystem = React.memo(function ParticleSystem({
   // Colour uniforms — no geometry rebuild
   useEffect(() => {
     if (!material.uniforms) return;
-    const safeColors = [...colors];
-    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]);
-    const [ca, cb, cc, cd, ce] = safeColors.slice(0, 5).map(hexToRgbNorm);
-    material.uniforms.uColorA.value.set(...ca);
-    material.uniforms.uColorB.value.set(...cb);
-    material.uniforms.uColorC.value.set(...cc);
-    material.uniforms.uColorD.value.set(...cd);
-    material.uniforms.uColorE.value.set(...ce);
+    const safeColors = colors.length > 0 ? [...colors] : ['#7eb8f7'];
+    while (safeColors.length < 5) safeColors.push(safeColors[safeColors.length - 1]!);
+    const [h0, h1, h2, h3, h4] = safeColors.slice(0, 5);
+    material.uniforms.uColorA!.value.set(...hexToRgbNorm(h0!));
+    material.uniforms.uColorB!.value.set(...hexToRgbNorm(h1!));
+    material.uniforms.uColorC!.value.set(...hexToRgbNorm(h2!));
+    material.uniforms.uColorD!.value.set(...hexToRgbNorm(h3!));
+    material.uniforms.uColorE!.value.set(...hexToRgbNorm(h4!));
   }, [colors, material]);
 
   useEffect(() => () => { geometry.dispose(); material.dispose(); }, [geometry, material]);
 
   useFrame((state) => {
     if (!material.uniforms) return;
-    material.uniforms.uTime.value  = state.clock.elapsedTime;
-    material.uniforms.uSpeed.value = speed;
-    material.uniforms.uSize.value  = size;
+    material.uniforms.uTime!.value  = state.clock.elapsedTime;
+    material.uniforms.uSpeed!.value = speed;
+    material.uniforms.uSize!.value  = size;
   });
 
   return <points geometry={geometry} material={material} />;

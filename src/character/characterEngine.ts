@@ -67,7 +67,7 @@ export const selectDialogueForEvent = (
 
   const pool_ = candidates.length > 0 ? candidates : pool;
   const index = Math.floor(Math.random() * pool_.length);
-  return pool_[index];
+  return pool_[index] ?? null;
 };
 
 /**

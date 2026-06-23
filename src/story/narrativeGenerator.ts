@@ -50,7 +50,7 @@ function pick<T>(arr: T[], seed: string): T {
   for (let i = 0; i < seed.length; i++) {
     hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
   }
-  return arr[hash % arr.length];
+  return arr[hash % arr.length]!;
 }
 
 export class NarrativeGenerator {

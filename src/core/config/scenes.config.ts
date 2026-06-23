@@ -12,7 +12,7 @@
  * and must be contiguous and non-overlapping, covering the full 0-1 range.
  */
 
-import { UniverseState } from '../store/universeStore';
+import { UniverseState } from '@/core/store/universeStore';
 import type { SceneId } from './eventBus';
 
 export interface SceneRange {
@@ -119,7 +119,7 @@ export function getSceneAtProgress(scrollProgress: number): SceneConfig {
   const clamped = Math.min(1, Math.max(0, scrollProgress));
   const found = SCENES_CONFIG.find((s) => clamped >= s.range.start && clamped < s.range.end);
   // scrollProgress === 1 falls through the < end check on the last scene; fallback to last.
-  return found ?? SCENES_CONFIG[SCENES_CONFIG.length - 1];
+  return found ?? SCENES_CONFIG[SCENES_CONFIG.length - 1]!;
 }
 
 /** Normalizes global scrollProgress into a 0-1 chapterProgress local to the given scene. */

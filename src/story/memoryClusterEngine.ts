@@ -64,9 +64,9 @@ export class MemoryClusterEngine {
     return {
       id: generateId('cluster'),
       category,
-      label: labelHint ?? sorted[0].title,
+      label: labelHint ?? sorted[0]!.title,
       memoryIds: sorted.map((m) => m.id),
-      dateRange: { start: sorted[0].date, end: sorted[sorted.length - 1].date },
+      dateRange: { start: sorted[0]!.date, end: sorted[sorted.length - 1]!.date },
       centroidTags: this.commonTags(sorted),
     };
   }
@@ -89,7 +89,7 @@ export class MemoryClusterEngine {
         current = [m];
         return;
       }
-      const last = current[current.length - 1];
+      const last = current[current.length - 1]!;
       if (daysBetween(last.date, m.date) <= this.options.tripGapThresholdDays) {
         current.push(m);
       } else {
@@ -127,7 +127,7 @@ export class MemoryClusterEngine {
         current = [m];
         return;
       }
-      const last = current[current.length - 1];
+      const last = current[current.length - 1]!;
       if (daysBetween(last.date, m.date) <= this.options.eventGapThresholdDays) {
         current.push(m);
       } else {
@@ -159,7 +159,7 @@ export class MemoryClusterEngine {
         current = [m];
         return;
       }
-      const last = current[current.length - 1];
+      const last = current[current.length - 1]!;
       const gapMs = new Date(m.date).getTime() - new Date(last.date).getTime();
       if (gapMs <= thresholdMs) {
         current.push(m);

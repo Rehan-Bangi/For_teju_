@@ -16,7 +16,7 @@ import {
   FinaleUnlockRequirements,
   isFinaleUnlocked,
   unlockProgress,
-} from "../finale.config";
+} from "./finale.config";
 
 export interface FinaleEngineState {
   state: FinaleState;
@@ -37,7 +37,7 @@ export const createInitialFinaleEngineState = (): FinaleEngineState => ({
 const stageIndex = (stage: FinaleStage): number =>
   FINALE_STAGE_ORDER.indexOf(stage);
 
-const lastStage: FinaleStage = FINALE_STAGE_ORDER[FINALE_STAGE_ORDER.length - 1];
+const lastStage: FinaleStage = FINALE_STAGE_ORDER[FINALE_STAGE_ORDER.length - 1]!;
 
 export const sequenceProgressForStage = (stage: FinaleStage): number => {
   const idx = stageIndex(stage);
@@ -106,7 +106,7 @@ export const advanceStage = (
     return current;
   }
 
-  const nextStage = FINALE_STAGE_ORDER[idx + 1];
+  const nextStage = FINALE_STAGE_ORDER[idx + 1]!;
   const nextState: FinaleState =
     nextStage === "forever" ? "revealing" : "revealing";
 

@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { UNIVERSE_DEFAULTS } from './universe.config';
+import { UNIVERSE_DEFAULTS } from '../core/config/universe.config';
 import { UniverseQualityManager } from './UniverseQualityManager';
 
 interface StarfieldProps {
@@ -72,7 +72,7 @@ function buildStaticStarData(radius: number) {
 
   let idx = 0;
   for (let l = 0; l < LAYER_COUNT; l++) {
-    const lCount = Math.floor(MAX_STARS * LAYER_SPLITS[l]);
+    const lCount = Math.floor(MAX_STARS * LAYER_SPLITS[l]!);
     const lRadius = radius * (0.5 + l * 0.25);
     for (let i = 0; i < lCount && idx < MAX_STARS; i++, idx++) {
       const theta = Math.random() * Math.PI * 2;
@@ -156,9 +156,9 @@ export const Starfield = React.memo(function Starfield({
 
   useFrame((state, delta) => {
     const u = material.uniforms;
-    u.uTime.value         = state.clock.elapsedTime;
-    u.uTwinkleSpeed.value = twinkleSpeed;
-    u.uBrightness.value   = brightness;
+    u.uTime!.value         = state.clock.elapsedTime;
+    u.uTwinkleSpeed!.value = twinkleSpeed;
+    u.uBrightness!.value   = brightness;
 
     if (meshRef.current) {
       const rotSpeed = qm.getProfile().tier === 'low' ? 0.003 : 0.005;

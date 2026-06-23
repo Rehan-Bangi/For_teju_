@@ -42,8 +42,8 @@ import { useCallback, useState } from 'react';
 import { HeroUniverseScene } from '@/universe/HeroUniverseScene';
 import type { ChapterId } from '@/universe/UniverseTimelineController';
 import { SCENES_CONFIG, getSceneAtProgress } from '@/core/config/scenes.config';
-import { CharacterController } from '@/character/components/CharacterController';
-import { FinaleController } from '@/finale/components/FinaleController';
+import { CharacterController } from '@/character/CharacterController';
+import { FinaleController } from '@/finale/FinaleController';
 import type { FinaleUnlockRequirements } from '@/finale/finale.config';
 
 // TODO: source real thresholds from finale.config.ts (not available in the

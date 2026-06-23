@@ -1,4 +1,4 @@
-import { PersonalizationContext } from '../loveLetterEngine';
+import { PersonalizationContext } from './loveLetterEngine';
 
 // TODO(Rehan): Fill in the real personalization details once ready.
 export const LETTER_PERSONALIZATION: PersonalizationContext = {

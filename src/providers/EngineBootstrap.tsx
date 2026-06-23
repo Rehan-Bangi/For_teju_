@@ -30,11 +30,11 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { eventBus } from '@/core/config/eventBus';
-import { StoryEngine } from '@/story/engines/storyEngine';
+import { StoryEngine } from '@/story/storyEngine';
 import {
   AnniversaryUnlockEngine,
   type AnniversaryUnlockConfig,
-} from '@/story/engines/anniversaryUnlockEngine';
+} from '@/story/anniversaryUnlockEngine';
 
 const ANNIVERSARY_CHECK_INTERVAL_MS = 1000 * 60 * 60; // hourly is enough for a date check
 

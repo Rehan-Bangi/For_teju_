@@ -1,5 +1,5 @@
-import { useRef, useState, useCallback, useEffect, useMemo } from 'react';
-import { MoodConfig, MOOD_CONFIGS } from './universe.config';
+import { useRef, useState, useCallback, useEffect } from 'react';
+import { MoodConfig, MOOD_CONFIGS } from '../core/config/universe.config';
 
 // ─── Progress keyframes ───────────────────────────────────────────────────────
 
@@ -56,8 +56,8 @@ export function interpolateConfigs(a: MoodConfig, b: MoodConfig, rawT: number): 
   const maxNC = Math.max(a.nebula.colors.length, b.nebula.colors.length);
   const nebulaColors = Array.from({ length: maxNC }, (_, i) =>
     lerpHex(
-      a.nebula.colors[i % a.nebula.colors.length],
-      b.nebula.colors[i % b.nebula.colors.length],
+      a.nebula.colors[i % a.nebula.colors.length]!,
+      b.nebula.colors[i % b.nebula.colors.length]!,
       t,
     ),
   );
@@ -65,8 +65,8 @@ export function interpolateConfigs(a: MoodConfig, b: MoodConfig, rawT: number): 
   const maxPC = Math.max(a.particles.colors.length, b.particles.colors.length);
   const particleColors = Array.from({ length: maxPC }, (_, i) =>
     lerpHex(
-      a.particles.colors[i % a.particles.colors.length],
-      b.particles.colors[i % b.particles.colors.length],
+      a.particles.colors[i % a.particles.colors.length]!,
+      b.particles.colors[i % b.particles.colors.length]!,
       t,
     ),
   );
@@ -106,12 +106,12 @@ export function configFromProgress(progress: number): MoodConfig {
   const p = Math.max(0, Math.min(1, progress));
   const frames = STORY_KEYFRAMES;
 
-  if (p <= frames[0].progress) return frames[0].config;
-  if (p >= frames[frames.length - 1].progress) return frames[frames.length - 1].config;
+  if (p <= frames[0]!.progress) return frames[0]!.config;
+  if (p >= frames[frames.length - 1]!.progress) return frames[frames.length - 1]!.config;
 
   for (let i = 0; i < frames.length - 1; i++) {
-    const lo = frames[i];
-    const hi = frames[i + 1];
+    const lo = frames[i]!;
+    const hi = frames[i + 1]!;
     if (p >= lo.progress && p <= hi.progress) {
       const span = hi.progress - lo.progress;
       const local = span === 0 ? 0 : (p - lo.progress) / span;
@@ -119,14 +119,14 @@ export function configFromProgress(progress: number): MoodConfig {
     }
   }
 
-  return frames[frames.length - 1].config;
+  return frames[frames.length - 1]!.config;
 }
 
 export function labelFromProgress(progress: number): string {
   const p = Math.max(0, Math.min(1, progress));
   const frames = STORY_KEYFRAMES;
-  let closest = frames[0];
-  let minDist = Math.abs(p - frames[0].progress);
+  let closest = frames[0]!;
+  let minDist = Math.abs(p - frames[0]!.progress);
   for (const f of frames) {
     const d = Math.abs(p - f.progress);
     if (d < minDist) { minDist = d; closest = f; }

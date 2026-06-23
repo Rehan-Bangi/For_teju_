@@ -95,10 +95,12 @@ export function hexToRgbNorm(hex: string): [number, number, number] {
 }
 
 /** Pads/truncates a color array to exactly 5 entries, repeating the last color. */
-export function normalizeParticleColors(colors: string[]): string[] {
-  const safe = [...colors];
-  while (safe.length < 5) safe.push(safe[safe.length - 1]);
-  return safe.slice(0, 5);
+export function normalizeParticleColors(
+  colors: string[],
+): [string, string, string, string, string] {
+  const safe = colors.length > 0 ? [...colors] : ['#ffffff'];
+  while (safe.length < 5) safe.push(safe[safe.length - 1]!);
+  return safe.slice(0, 5) as [string, string, string, string, string];
 }
 
 export interface CreateParticleUniformsOptions {
@@ -114,7 +116,12 @@ export function createParticleUniforms({
   size,
   pixelRatio,
 }: CreateParticleUniformsOptions): ParticleUniforms {
-  const [ca, cb, cc, cd, ce] = normalizeParticleColors(colors).map(hexToRgbNorm);
+  const [h0, h1, h2, h3, h4] = normalizeParticleColors(colors);
+  const ca = hexToRgbNorm(h0);
+  const cb = hexToRgbNorm(h1);
+  const cc = hexToRgbNorm(h2);
+  const cd = hexToRgbNorm(h3);
+  const ce = hexToRgbNorm(h4);
   const dpr = pixelRatio ?? (typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 2) : 1);
 
   return {
@@ -135,12 +142,12 @@ export function updateParticleColorUniforms(
   uniforms: ParticleUniforms,
   colors: string[],
 ): void {
-  const [ca, cb, cc, cd, ce] = normalizeParticleColors(colors).map(hexToRgbNorm);
-  uniforms.uColorA.value.set(...ca);
-  uniforms.uColorB.value.set(...cb);
-  uniforms.uColorC.value.set(...cc);
-  uniforms.uColorD.value.set(...cd);
-  uniforms.uColorE.value.set(...ce);
+  const [h0, h1, h2, h3, h4] = normalizeParticleColors(colors);
+  uniforms.uColorA.value.set(...hexToRgbNorm(h0));
+  uniforms.uColorB.value.set(...hexToRgbNorm(h1));
+  uniforms.uColorC.value.set(...hexToRgbNorm(h2));
+  uniforms.uColorD.value.set(...hexToRgbNorm(h3));
+  uniforms.uColorE.value.set(...hexToRgbNorm(h4));
 }
 
 /** Convenience factory for a fully configured ShaderMaterial. */

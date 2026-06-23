@@ -7,7 +7,7 @@
  */
 
 import { motion, AnimatePresence } from "framer-motion";
-import { FINALE_ANIMATION, FINALE_CONTENT, FinaleStage } from "../finale.config";
+import { FINALE_ANIMATION, FINALE_CONTENT, FinaleStage } from "./finale.config";
 
 export interface FinaleRevealProps {
   stage: FinaleStage;

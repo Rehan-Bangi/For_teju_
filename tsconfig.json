@@ -2,38 +2,64 @@
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
     "strict": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
-
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/store/*": ["src/store/*"],
-      "@/lib/*": ["src/lib/*"],
-      "@/scenes/*": ["src/scenes/*"],
-      "@/character/*": ["src/character/*"],
-      "@/finale/*": ["src/finale/*"],
-      "@/integration/*": ["src/integration/*"],
-      "@/components/*": ["src/components/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/data/*": ["src/data/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@/store/*": [
+        "src/store/*"
+      ],
+      "@/lib/*": [
+        "src/lib/*"
+      ],
+      "@/scenes/*": [
+        "src/scenes/*"
+      ],
+      "@/character/*": [
+        "src/character/*"
+      ],
+      "@/finale/*": [
+        "src/finale/*"
+      ],
+      "@/integration/*": [
+        "src/integration/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ],
+      "@/data/*": [
+        "src/data/*"
+      ]
     }
   },
-  "include": ["src", "vite.config.ts"]
+  "include": [
+    "src",
+    "vite.config.ts"
+  ]
 }

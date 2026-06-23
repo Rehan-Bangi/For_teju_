@@ -31,10 +31,10 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import Lenis from 'lenis';
+import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { eventBus } from '@/core/events/eventBus';
+import { eventBus } from '@/core/config/eventBus';
 
 gsap.registerPlugin(ScrollTrigger);
 

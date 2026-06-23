@@ -123,7 +123,7 @@ export class LoveLetterEngine {
     return {
       ...letter,
       title: `Happy Anniversary, ${ctx.recipientName}`,
-      sections: [letter.sections[0], anniversarySection, ...letter.sections.slice(1)],
+      sections: [letter.sections[0]!, anniversarySection, ...letter.sections.slice(1)],
     };
   }
 }

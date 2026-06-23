@@ -15,7 +15,6 @@ export default defineConfig({
         '**/*.vs',
         '**/*.fs',
       ],
-      compress: false,
       watch: true,
     }),
   ],
