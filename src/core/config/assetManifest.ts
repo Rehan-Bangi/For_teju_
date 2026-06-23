@@ -101,8 +101,8 @@ export interface FontAsset {
 }
 
 export const FONT_ASSETS: FontAsset[] = [
-  { id: 'display', path: '/assets/fonts/display.woff2' },
-  { id: 'body', path: '/assets/fonts/body.woff2' },
+  // { id: 'display', path: '/assets/fonts/display.woff2' },
+  // { id: 'body', path: '/assets/fonts/body.woff2' },
 ];
 
 // ----------------------------------------------------------------------------

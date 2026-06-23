@@ -15,6 +15,11 @@ export default defineConfig({
         '**/*.vs',
         '**/*.fs',
       ],
+      exclude: [
+        'node_modules/**',
+        '**/@react-refresh**',
+        '**/@vite/**',
+      ],
       watch: true,
     }),
   ],
